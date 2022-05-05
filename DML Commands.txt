@@ -1,3 +1,5 @@
+Reference - https://github.com/shushrutsharma/18CSC303J-DBMS
+
 SQL> create table student(regno varchar(20),uname varchar(10),age integer,city varchar(20));
 
 Table created.
