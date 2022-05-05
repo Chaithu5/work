@@ -1,0 +1,139 @@
+SQL> set serveroutput on;
+SQL> declare
+a number;
+b number;
+c number;
+begin
+a:=&a;
+b:=&b;
+c:=a+b;
+dbms_output.put_line('sum of'||a||'and'||b||'is'||c);
+end;
+/
+INPUT:
+Enter value for a: 23
+old 6: a:=&a;
+new 6: a:=23;
+Enter value for b: 12
+old 7: b:=&b;
+new 7: b:=12;
+OUTPUT:
+sum of23and12is35
+
+PL/SQL procedure successfully completed.
+
+SQL> DECLARE
+  2  b number;
+  3  c number;
+  4  begin
+  5  B:=10;
+  6  C:=20;
+  7  if(C>B) THEN
+  8  dbms_output.put_line('C is maximum');
+  9  end if;
+ 10  end;
+ 11  /
+C is maximum
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  n number;
+  3  begin
+  4  dbms_output. put_line('enter a number');
+  5  n:=&number;
+  6  if n<5 then
+  7  dbms_output.put_line('entered number is less than 5');
+  8  else
+  9  dbms_output.put_line('entered number is greater than 5');
+ 10  end if;
+ 11  end if;
+ 12  end;
+ 13  /
+Enter value for number: 2
+old   5: n:=&number;
+new   5: n:=2;
+end if;
+    *
+ERROR at line 11:
+ORA-06550: line 11, column 5:
+PLS-00103: Encountered the symbol "IF" when expecting one of the following:
+; <an identifier> <a double-quoted delimited-identifier>
+
+
+SQL> declare
+  2  n number;
+  3  begin
+  4  dbms_output. put_line('enter a number');
+  5  n:=&number;
+  6  if n<5 then
+  7  dbms_output.put_line('entered number is less than 5');
+  8  else
+  9  dbms_output.put_line('entered number is greater than 5');
+ 10  end if;
+ 11  end;
+ 12  /
+Enter value for number: 2
+old   5: n:=&number;
+new   5: n:=2;
+enter a number
+entered number is less than 5
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  a number;
+  3  b number;
+  4  c number;
+  5  d number;
+  6  begin
+  7  a:=&a;
+  8  b:=&b;
+  9  c:=&b;
+ 10  if(a>b)and(a>c) then
+ 11  dbms_output.put_line('A is maximum');
+ 12  elsif(b>a)and(b>c)then
+ 13  dbms_output.put_line('B is maximum');
+ 14  else
+ 15  dbms_output.put_line('C is maximum');
+ 16  end if;
+ 17  end;
+ 18  /
+Enter value for a: 21
+old   7: a:=&a;
+new   7: a:=21;
+Enter value for b: 12
+old   8: b:=&b;
+new   8: b:=12;
+Enter value for b: 45
+old   9: c:=&b;
+new   9: c:=45;
+C is maximum
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  n number;
+  3  sum1 number default 0;
+  4  endvalue number;
+  5  begin
+  6  endvalue:=&endvalue;
+  7  n:=1;
+  8  for n in 1..endvalue
+  9  loop
+ 10  if mod(n,2)=1
+ 11  then
+ 12  sum1:=sum1+n;
+ 13  end if;
+ 14  end loop;
+ 15  dbms_output.put_line('sum ='||sum1);
+ 16  end;
+ 17  /
+Enter value for endvalue: 4
+old   6: endvalue:=&endvalue;
+new   6: endvalue:=4;
+sum =4
+
+PL/SQL procedure successfully completed.
+
+SQL>

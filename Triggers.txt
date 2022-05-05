@@ -1,0 +1,178 @@
+SQL> set serveroutput on;
+SQL> create table emp10(empno number(6), ename varchar2(20) not null,job varchar2(10) not null,deptno number(3), sal number(7,2));
+
+Table created.
+
+SQL> desc emp10;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              NUMBER(6)
+ ENAME                                     NOT NULL VARCHAR2(20)
+ JOB                                       NOT NULL VARCHAR2(10)
+ DEPTNO                                             NUMBER(3)
+ SAL                                                NUMBER(7,2)
+
+
+
+SQL> CREATE OR REPLACE TRIGGER T5
+  2  AFTER UPDATE OR INSERT OR DELETE ON EMP10
+  3  FOR EACH ROW
+  4  BEGIN
+  5  IF UPDATING THEN
+  6  DBMS_OUTPUT.PUT_LINE('TABLE IS UPDATED');
+  7  ELSEIF INSERTING THEN
+  8  DBMS_OUTPUT.PUT_LINE('TABLE IS INSERTED');
+  9  ELSIF DELETING THEN
+ 10  DBMS_OUTPUT.PUT_LINE('TABLE IS DELETED');
+ 11  END IF;
+ 12  END IF;
+ 13  END IF;
+ 14  END;
+ 15  /
+
+Warning: Trigger created with compilation errors.
+
+SQL> DROP TRIGGER T5;
+
+Trigger dropped.
+
+SQL> CREATE OR REPLACE TRIGGER T5
+  2  AFTER UPDATE OR INSERT OR DELETE ON EMP10
+  3  FOR EACH ROW
+  4  BEGIN
+  5  IF UPDATING THEN
+  6  DBMS_OUTPUT.PUT_LINE('TABLE IS UPDATED');
+  7  ELSE IF INSERTING THEN
+  8  DBMS_OUTPUT.PUT_LINE('TABLE IS INSERTED');
+  9  ELSE IF DELETING THEN
+ 10  DBMS_OUTPUT.PUT_LINE('TABLE IS DELETED');
+ 11  END IF;
+ 12  END IF;
+ 13  END IF;
+ 14  END;
+ 15  /
+
+Trigger created.
+
+SQL> INSERT INTO EMP10 VALUES(4,'CHAD',800,203,80);
+TABLE IS INSERTED
+
+1 row created.
+
+SQL> DELETE FROM EMP10 WHERE EMPNO = 4;
+TABLE IS DELETED
+
+1 row deleted.
+
+SQL> INSERT INTO EMP10 VALUES (4,'SANKAR',700,98,213);
+TABLE IS INSERTED
+
+1 row created.
+
+SQL> UPDATE EMP10 SET EMPNO = 4 WHERE ENAME = 'SANKAR';
+TABLE IS UPDATED
+
+1 row updated.
+
+SQL> CREATE TRIGGER TRIGNEW
+  2  AFTER INSERT OR UPDATE OF SAL ON EMP10
+  3  FOR EACH ROW
+  4  BEGIN
+  5  IF(:NEW.AGE<0) THEN
+  6  DBMS_OUTPUT.PUT_LINE('TABLE IS DELETED');
+  7  /
+
+Warning: Trigger created with compilation errors.
+
+SQL> DROP TRIGNEW;
+DROP TRIGNEW
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option
+
+
+SQL> CREATE TRIGGER TRIGNEW1
+  2  AFTER INSERT OR UPDATE OF SAL ON EMP10
+  3  FOR EACH ROW
+  4  BEGIN
+  5  IF(:NEW.SAL<0) THEN
+  6  DBMS_OUTPUT.PUT_LINE('INVALID SAL');
+  7  ELSE
+  8  DBMS_OUTPUT.PUT_LINE('VALID SAL');
+  9  END IF;
+ 10  END IF;
+ 11  END;
+ 12  /
+
+Warning: Trigger created with compilation errors.
+
+SQL> CREATE TRIGGER TRIGNEW1
+  2  AFTER INSERT OR UPDATE OF SAL ON EMP10
+  3  FOR EACH ROW
+  4  BEGIN
+  5  IF(:NEW.SAL<0) THEN
+  6  DBMS_OUTPUT.PUT_LINE('INVALID SAL');
+  7  ELSE
+  8  DBMS_OUTPUT.PUT_LINE('VALID SAL');
+  9  END IF;
+ 10  END;
+ 11  /
+CREATE TRIGGER TRIGNEW1
+               *
+ERROR at line 1:
+ORA-04081: trigger 'TRIGNEW1' already exists
+
+
+SQL> CREATE TRIGGER TRIGNEW2
+  2  AFTER INSERT OR UPDATE OF SAL ON EMP10
+  3  FOR EACH ROW
+  4  BEGIN
+  5  IF(:NEW.SAL<0) THEN
+  6  DBMS_OUTPUT.PUT_LINE('INVALID SAL');
+  7  ELSE
+  8  DBMS_OUTPUT.PUT_LINE('VALID SAL');
+  9  END IF;
+ 10  END;
+ 11  /
+
+Trigger created.
+
+SQL> INSERT INTO EMP10 VALUES (5,'SANKAR',700,98,213);
+INSERT INTO EMP10 VALUES (5,'SANKAR',700,98,213)
+            *
+ERROR at line 1:
+ORA-04098: trigger 'RA1911003010451.TRIGNEW' is invalid and failed
+re-validation
+
+
+SQL> DROP TRIGNEW;
+DROP TRIGNEW
+     *
+ERROR at line 1:
+ORA-00950: invalid DROP option
+
+
+SQL> DROP TRIGGER TRIGNEW;
+
+Trigger dropped.
+
+SQL> INSERT INTO EMP10 VALUES (5,'SANKAR',700,98,213);
+INSERT INTO EMP10 VALUES (5,'SANKAR',700,98,213)
+            *
+ERROR at line 1:
+ORA-04098: trigger 'RA1911003010451.TRIGNEW1' is invalid and failed
+re-validation
+
+
+SQL> DROP TRIGGER TRIGNEW1;
+
+Trigger dropped.
+
+SQL> INSERT INTO EMP10 VALUES (5,'SANKAR',700,98,213);
+VALID SAL
+TABLE IS INSERTED
+
+1 row created.
+
+SQL> SPOOL OFF
+SQL>

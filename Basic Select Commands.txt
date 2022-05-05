@@ -1,0 +1,217 @@
+SQL> create table employee(EmpNO integer, Name varchar2(20), Job varchar2(20), DeptNO number, Sal number);
+
+Table created.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ JOB                                                VARCHAR2(20)
+ DEPTNO                                             NUMBER
+ SAL                                                NUMBER
+
+SQL> insert into employee values(1,"Mathi", "AP", 1 , 10000);
+insert into employee values(1,"Mathi", "AP", 1 , 10000)
+                                       *
+ERROR at line 1:
+ORA-00984: column not allowed here 
+
+
+SQL> insert into employee values(&empno,'&name','&job',&deptno,&sal);
+Enter value for empno: 1
+Enter value for name: Mathi
+Enter value for job: AP
+Enter value for deptno: 1
+Enter value for sal: 10000
+old   1: insert into employee values(&empno,'&name','&job',&deptno,&sal)
+new   1: insert into employee values(1,'Mathi','AP',1,10000)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 2
+Enter value for name: Arjun
+Enter value for job: ASP
+Enter value for deptno: 1
+Enter value for sal: 12000
+old   1: insert into employee values(&empno,'&name','&job',&deptno,&sal)
+new   1: insert into employee values(2,'Arjun','ASP',1,12000)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 3
+Enter value for name: GUGAN
+Enter value for job: ASP
+Enter value for deptno: 2
+Enter value for sal: 15000
+old   1: insert into employee values(&empno,'&name','&job',&deptno,&sal)
+new   1: insert into employee values(3,'GUGAN','ASP',2,15000)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 4
+Enter value for name: KARTHIK
+Enter value for job: PROF
+Enter value for deptno: 2
+Enter value for sal: 30000
+old   1: insert into employee values(&empno,'&name','&job',&deptno,&sal)
+new   1: insert into employee values(4,'KARTHIK','PROF',2,30000)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 5
+Enter value for name: AKALYA
+Enter value for job: AP
+Enter value for deptno: 1
+Enter value for sal: 10000
+old   1: insert into employee values(&empno,'&name','&job',&deptno,&sal)
+new   1: insert into employee values(5,'AKALYA','AP',1,10000)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 6
+Enter value for name: SURESH
+Enter value for job: LECT
+Enter value for deptno: 1
+Enter value for sal: 8000
+old   1: insert into employee values(&empno,'&name','&job',&deptno,&sal)
+new   1: insert into employee values(6,'SURESH','LECT',1,8000)
+
+1 row created.
+
+SQL> desc employee
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              NUMBER(38)
+ NAME                                               VARCHAR2(20)
+ JOB                                                VARCHAR2(20)
+ DEPTNO                                             NUMBER
+ SAL                                                NUMBER
+
+SQL> select * from employee
+  2  
+SQL> select * from employee;
+
+     EMPNO NAME                 JOB                      DEPTNO        SAL      
+---------- -------------------- -------------------- ---------- ----------      
+         1 Mathi                AP                            1      10000      
+         2 Arjun                ASP                           1      12000      
+         3 GUGAN                ASP                           2      15000      
+         4 KARTHIK              PROF                          2      30000      
+         5 AKALYA               AP                            1      10000      
+         6 SURESH               LECT                          1       8000      
+
+6 rows selected.
+
+SQL> delete from employee where job = 'LECT';
+
+1 row deleted.
+
+SQL> select * from empployee;
+select * from empployee
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> select * from employee;
+
+     EMPNO NAME                 JOB                      DEPTNO        SAL      
+---------- -------------------- -------------------- ---------- ----------      
+         1 Mathi                AP                            1      10000      
+         2 Arjun                ASP                           1      12000      
+         3 GUGAN                ASP                           2      15000      
+         4 KARTHIK              PROF                          2      30000      
+         5 AKALYA               AP                            1      10000      
+
+SQL> select * from employee order by sal;
+
+     EMPNO NAME                 JOB                      DEPTNO        SAL      
+---------- -------------------- -------------------- ---------- ----------      
+         1 Mathi                AP                            1      10000      
+         5 AKALYA               AP                            1      10000      
+         2 Arjun                ASP                           1      12000      
+         3 GUGAN                ASP                           2      15000      
+         4 KARTHIK              PROF                          2      30000      
+
+SQL> select * from employee order by sal desc;
+
+     EMPNO NAME                 JOB                      DEPTNO        SAL      
+---------- -------------------- -------------------- ---------- ----------      
+         4 KARTHIK              PROF                          2      30000      
+         3 GUGAN                ASP                           2      15000      
+         2 Arjun                ASP                           1      12000      
+         5 AKALYA               AP                            1      10000      
+         1 Mathi                AP                            1      10000      
+
+SQL> select * from employee where sal > 10000;
+
+     EMPNO NAME                 JOB                      DEPTNO        SAL      
+---------- -------------------- -------------------- ---------- ----------      
+         2 Arjun                ASP                           1      12000      
+         3 GUGAN                ASP                           2      15000      
+         4 KARTHIK              PROF                          2      30000      
+
+SQL> select distinct deptno from employee;
+
+    DEPTNO                                                                      
+----------                                                                      
+         1                                                                      
+         2                                                                      
+
+SQL> select name from employee where sal > 1000 AND sal < 15000;
+
+NAME                                                                            
+--------------------                                                            
+Mathi                                                                           
+Arjun                                                                           
+AKALYA                                                                          
+
+SQL> select name from employee where sal Between 10000 AND 30000;
+
+NAME                                                                            
+--------------------                                                            
+Mathi                                                                           
+Arjun                                                                           
+GUGAN                                                                           
+KARTHIK                                                                         
+AKALYA                                                                          
+
+SQL> select * from employee where name = 'Mathi';
+
+     EMPNO NAME                 JOB                      DEPTNO        SAL      
+---------- -------------------- -------------------- ---------- ----------      
+         1 Mathi                AP                            1      10000      
+
+SQL> select * from employee where name LIKE '%AN%';
+
+     EMPNO NAME                 JOB                      DEPTNO        SAL      
+---------- -------------------- -------------------- ---------- ----------      
+         3 GUGAN                ASP                           2      15000      
+
+SQL> select * from employee ORDER BY 'DEPTNO';
+
+     EMPNO NAME                 JOB                      DEPTNO        SAL      
+---------- -------------------- -------------------- ---------- ----------      
+         1 Mathi                AP                            1      10000      
+         2 Arjun                ASP                           1      12000      
+         3 GUGAN                ASP                           2      15000      
+         4 KARTHIK              PROF                          2      30000      
+         5 AKALYA               AP                            1      10000      
+
+SQL> select * from employee ORDER BY 'SAL';
+
+     EMPNO NAME                 JOB                      DEPTNO        SAL      
+---------- -------------------- -------------------- ---------- ----------      
+         1 Mathi                AP                            1      10000      
+         2 Arjun                ASP                           1      12000      
+         3 GUGAN                ASP                           2      15000      
+         4 KARTHIK              PROF                          2      30000      
+         5 AKALYA               AP                            1      10000      
+
+SQL> spool off

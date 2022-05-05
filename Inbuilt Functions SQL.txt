@@ -1,0 +1,238 @@
+SQL> create table employee
+  2  (empno int,name varchar2(20));
+
+Table created.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPNO                                              NUMBER(38)
+ NAME                                               VARCHAR2(20)
+
+SQL> insert into employee values(&empno,'&name');
+Enter value for empno: 101
+Enter value for name: chaithu
+old   1: insert into employee values(&empno,'&name')
+new   1: insert into employee values(101,'chaithu')
+
+1 row created.
+
+SQL> /
+Enter value for empno: 102
+Enter value for name: peter
+old   1: insert into employee values(&empno,'&name')
+new   1: insert into employee values(102,'peter')
+
+1 row created.
+
+SQL> /
+Enter value for empno: 103
+Enter value for name: miles
+old   1: insert into employee values(&empno,'&name')
+new   1: insert into employee values(103,'miles')
+
+1 row created.
+
+SQL> /
+Enter value for empno: 104
+Enter value for name: harvey
+old   1: insert into employee values(&empno,'&name')
+new   1: insert into employee values(104,'harvey')
+
+1 row created.
+
+SQL> select ascii('A') from dual;
+
+ASCII('A')                                                                      
+----------                                                                      
+        65                                                                      
+
+SQL> select ascii('a') from dual;
+
+ASCII('A')                                                                      
+----------                                                                      
+        97                                                                      
+
+SQL> select ascii('a8') from dual;
+
+ASCII('A8')                                                                     
+-----------                                                                     
+         97                                                                     
+
+SQL> 
+SQL> select CHR('99') from dual;
+
+C                                                                               
+-                                                                               
+c                                                                               
+
+SQL> select CHR(65), CHR('99') from dual;
+
+C C                                                                             
+- -                                                                             
+A c                                                                             
+                                                                        
+
+SQL> select concat('chaithu','anv') from dual;
+
+CONCAT('CH                                                                      
+----------                                                                      
+chaithuanv                                                                      
+
+SQL> select INITCAP('hello world') from dual;
+
+INITCAP('HE                                                                     
+-----------                                                                     
+Hello World                                                                     
+
+SQL> SELECT INSTR('Character','r',1,1) POS1, INSTR('Character','r',1,2) POS2, INSTR('Character','a',-1,2) from dual;
+
+      POS1       POS2 INSTR('CHARACTER','A',-1,2)                               
+---------- ---------- ---------------------------                               
+         4          9                           3                               
+
+SQL> SELECT INSTR('Character','r',1,1) POS1, INSTR('Character','r',1,2) POS2, INSTR('Character','a',-1,2) POS3 from dual;
+
+      POS1       POS2       POS3                                                
+---------- ---------- ----------                                                
+         4          9          3                                                
+
+SQL> select length('Hello world') as len from dual;
+
+       LEN                                                                      
+----------                                                                      
+        11                                                                      
+
+SQL> select upper(name) from employee;
+
+UPPER(NAME)                                                                     
+--------------------                                                            
+CHAITHU                                                                         
+PETER                                                                           
+MILES                                                                           
+HARVEY                                                                          
+
+SQL> select lower(name) from employee;
+
+LOWER(NAME)                                                                     
+--------------------                                                            
+chaithu                                                                         
+peter                                                                           
+miles                                                                           
+harvey                                                                          
+
+SQL>  select LPAD('Hello',10,'.') lpad_doted from dual;
+
+LPAD_DOTED                                                                      
+----------                                                                      
+.....Hello                                                                      
+
+SQL> select RPAD('Hello',10,'.') lpad_doted from dual;
+
+LPAD_DOTED                                                                      
+----------                                                                      
+Hello.....                                                                      
+
+SQL>  select Ltrim('datawarehousing','ing') from dual;
+
+LTRIM('DATAWARE                                                                 
+---------------                                                                 
+datawarehousing                                                                 
+
+SQL> select Ltrim('datawarehousing','data') trim4 from dual;
+
+TRIM4                                                                           
+-----------                                                                     
+warehousing                                                                     
+
+SQL> select replace('Oracle','Ora','Arti')replace_exa from dual;
+
+REPLACE                                                                         
+-------                                                                         
+Article                                                                         
+
+SQL> select abs(-25)"Abs" from dual;
+
+       Abs                                                                      
+----------                                                                      
+        25                                                                      
+
+SQL> select acos(.28)"Arc_cosine" from dual;
+
+Arc_cosine                                                                      
+----------                                                                      
+1.28700222                                                                      
+
+SQL> select ceil(234.6) from dual;
+
+CEIL(234.6)                                                                     
+-----------                                                                     
+        235                                                                     
+
+SQL> select floor(25.9) from dual;
+
+FLOOR(25.9)                                                                     
+-----------                                                                     
+         25                                                                     
+
+SQL> select mod(11,3)"Mod" from dual;
+
+       Mod                                                                      
+----------                                                                      
+         2                                                                      
+
+SQL> select power(3,8)"Power" from dual;
+
+     Power                                                                      
+----------                                                                      
+      6561                                                                      
+
+SQL> select round(34.543,1)"Round" from dual;
+
+     Round                                                                      
+----------                                                                      
+      34.5                                                                      
+
+SQL> select sysdate,add_months(sysdate,2) from dual;
+
+SYSDATE   ADD_MONTH                                                             
+--------- ---------                                                             
+08-FEB-22 08-APR-22                                                             
+
+SQL> select sysdate,extract(year from sysdate)year,extract(day from sysdate)day,extract(timezone_hour from systimestamp)tzh from dual;
+
+SYSDATE         YEAR        DAY        TZH                                      
+--------- ---------- ---------- ----------                                      
+08-FEB-22       2022          8          0                                      
+
+SQL> select next_day('31-Aug-18','sun')"First Monday of september" from dual;
+
+First Mon                                                                       
+---------                                                                       
+02-SEP-18                                                                       
+
+SQL> select months_between('21-jan-2019','11-dec-2021') from dual;
+
+MONTHS_BETWEEN('21-JAN-2019','11-DEC-2021')                                     
+-------------------------------------------                                     
+                                 -34.677419                                     
+
+SQL> select sysdate,round(sysdate,'mm'),round(sysdate,'yyyy') from dual;
+
+SYSDATE   ROUND(SYS ROUND(SYS                                                   
+--------- --------- ---------                                                   
+08-FEB-22 01-FEB-22 01-JAN-22                                                   
+
+SQL> select next_day('31-Aug-18','sun')"First Monday of september" from dual;
+
+First Mon                                                                       
+---------                                                                       
+02-SEP-18                                                                       
+
+SQL> select trunc(12.75,-1)"Trunc" from dual;
+
+     Trunc                                                                      
+----------                                                                      
+        10                                                                      
+
+SQL> spool off

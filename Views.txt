@@ -1,0 +1,163 @@
+SQL> create table employee(Employee_Name varchar(10),Employee_No number(8),Dept_Name varchar(10),Dept_No number(5),Date_Of_Join date);
+
+Table created.
+
+SQL> desc employee;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEE_NAME                                      VARCHAR2(10)
+ EMPLOYEE_NO                                        NUMBER(8)
+ DEPT_NAME                                          VARCHAR2(10)
+ DEPT_NO                                            NUMBER(5)
+ DATE_OF_JOIN                                       DATE
+
+SQL> Create view empview as select Employee_Name, Employee_No,Dept_Name,Dept_No,Date_Of_Join from employee;
+
+View created.
+
+SQL> desc empview;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMPLOYEE_NAME                                      VARCHAR2(10)
+ EMPLOYEE_NO                                        NUMBER(8)
+ DEPT_NAME                                          VARCHAR2(10)
+ DEPT_NO                                            NUMBER(5)
+ DATE_OF_JOIN                                       DATE
+
+SQL> insert into employee values('&employee_name','&employee_no','&dept_name','&dept_no','&date_of_join');
+Enter value for employee_name: Chaithu
+Enter value for employee_no: 101
+Enter value for dept_name: btech
+Enter value for dept_no: 01
+Enter value for date_of_join: 04-Feb-2020
+old   1: insert into employee values('&employee_name','&employee_no','&dept_name','&dept_no','&date_of_join')
+new   1: insert into employee values('Chaithu','101','btech','01','04-Feb-2020')
+
+1 row created.
+
+SQL> /
+Enter value for employee_name: Peter
+Enter value for employee_no: 102
+Enter value for dept_name: btech
+Enter value for dept_no: 02
+Enter value for date_of_join: 05-may-2020
+old   1: insert into employee values('&employee_name','&employee_no','&dept_name','&dept_no','&date_of_join')
+new   1: insert into employee values('Peter','102','btech','02','05-may-2020')
+
+1 row created.
+
+SQL> /
+Enter value for employee_name: Harvey
+Enter value for employee_no: 103
+Enter value for dept_name: law
+Enter value for dept_no: 103
+Enter value for date_of_join: 08-feb-2021
+old   1: insert into employee values('&employee_name','&employee_no','&dept_name','&dept_no','&date_of_join')
+new   1: insert into employee values('Harvey','103','law','103','08-feb-2021')
+
+1 row created.
+
+SQL> /
+Enter value for employee_name: Ross
+Enter value for employee_no: 104
+Enter value for dept_name: bank
+Enter value for dept_no: 04
+Enter value for date_of_join: 09-oct-2022
+old   1: insert into employee values('&employee_name','&employee_no','&dept_name','&dept_no','&date_of_join')
+new   1: insert into employee values('Ross','104','bank','04','09-oct-2022')
+
+1 row created.
+
+SQL> select * from employee;
+
+EMPLOYEE_N EMPLOYEE_NO DEPT_NAME     DEPT_NO DATE_OF_J                          
+---------- ----------- ---------- ---------- ---------                          
+Chaithu            101 btech               1 04-FEB-20                          
+Peter              102 btech               2 05-MAY-20                          
+Harvey             103 law               103 08-FEB-21                          
+Ross               104 bank                4 09-OCT-22                          
+
+SQL> select * from empview;
+
+EMPLOYEE_N EMPLOYEE_NO DEPT_NAME     DEPT_NO DATE_OF_J                          
+---------- ----------- ---------- ---------- ---------                          
+Chaithu            101 btech               1 04-FEB-20                          
+Peter              102 btech               2 05-MAY-20                          
+Harvey             103 law               103 08-FEB-21                          
+Ross               104 bank                4 09-OCT-22                          
+
+SQL> insert into empview values('Litt','6','Sr','5','15-Nov-2019');
+
+1 row created.
+
+SQL> select * from empview;
+
+EMPLOYEE_N EMPLOYEE_NO DEPT_NAME     DEPT_NO DATE_OF_J                          
+---------- ----------- ---------- ---------- ---------                          
+Chaithu            101 btech               1 04-FEB-20                          
+Peter              102 btech               2 05-MAY-20                          
+Harvey             103 law               103 08-FEB-21                          
+Ross               104 bank                4 09-OCT-22                          
+Litt                 6 Sr                  5 15-NOV-19                          
+
+SQL> select * from employee;
+
+EMPLOYEE_N EMPLOYEE_NO DEPT_NAME     DEPT_NO DATE_OF_J                          
+---------- ----------- ---------- ---------- ---------                          
+Chaithu            101 btech               1 04-FEB-20                          
+Peter              102 btech               2 05-MAY-20                          
+Harvey             103 law               103 08-FEB-21                          
+Ross               104 bank                4 09-OCT-22                          
+Litt                 6 Sr                  5 15-NOV-19                          
+
+SQL> delete from empview where employee_no='6';
+
+1 row deleted.
+
+SQL> select * from empview;
+
+EMPLOYEE_N EMPLOYEE_NO DEPT_NAME     DEPT_NO DATE_OF_J                          
+---------- ----------- ---------- ---------- ---------                          
+Chaithu            101 btech               1 04-FEB-20                          
+Peter              102 btech               2 05-MAY-20                          
+Harvey             103 law               103 08-FEB-21                          
+Ross               104 bank                4 09-OCT-22                          
+
+SQL> update empview set dept_name='admin' where employee_no='104';
+
+1 row updated.
+
+SQL> select * from empview;
+
+EMPLOYEE_N EMPLOYEE_NO DEPT_NAME     DEPT_NO DATE_OF_J                          
+---------- ----------- ---------- ---------- ---------                          
+Chaithu            101 btech               1 04-FEB-20                          
+Peter              102 btech               2 05-MAY-20                          
+Harvey             103 law               103 08-FEB-21                          
+Ross               104 admin               4 09-OCT-22                          
+
+SQL> drop view empview;
+
+View dropped.
+
+SQL> select * from empview;
+select * from empview
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist 
+
+
+SQL> create view empview_new as select employee_name,dept_no from employee;
+
+View created.
+
+SQL>  select * from empview_new;
+
+EMPLOYEE_N    DEPT_NO                                                           
+---------- ----------                                                           
+Chaithu             1                                                           
+Peter               2                                                           
+Harvey            103                                                           
+Ross                4                                                           
+
+SQL> spool off;

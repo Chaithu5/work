@@ -1,0 +1,63 @@
+SQL> create table student(regno varchar(20),uname varchar(10),age integer,city varchar(20));
+
+Table created.
+
+SQL> desc student;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ REGNO                                              VARCHAR2(20)
+ UNAME                                              VARCHAR2(10)
+ AGE                                                NUMBER(38)
+ CITY                                               VARCHAR2(20)
+
+SQL> insert into student values('RA1911003010451','Chaitanya',19,'hyderabad');
+
+1 row created.
+
+SQL> insert into student values('&regno','&uname',&age,'&city');
+Enter value for regno: 451
+Enter value for uname: Peter
+Enter value for age: 20
+Enter value for city: Blore
+old   1: insert into student values('&regno','&uname',&age,'&city')
+new   1: insert into student values('451','Peter',20,'Blore')
+
+1 row created.
+
+SQL> select * from student;
+
+REGNO                UNAME             AGE CITY
+-------------------- ---------- ---------- --------------------
+RA1911003010451      Chaitanya          19 hyderabad
+451                  Peter              20 Blore
+
+SQL> update student set uname='MJ' where city='Blore';
+
+1 row updated.
+
+SQL> select * from student;
+
+REGNO                UNAME             AGE CITY
+-------------------- ---------- ---------- --------------------
+RA1911003010451      Chaitanya          19 hyderabad
+451                  MJ                 20 Blore
+
+SQL> delete from student where city='Blore';
+
+1 row deleted.
+
+SQL> truncate table student;
+
+Table truncated.
+
+SQL> select * from student;
+
+no rows selected
+
+SQL> drop table student;
+
+Table dropped.
+
+SQL> desc student;
+ERROR:
+ORA-04043: object student does not exist

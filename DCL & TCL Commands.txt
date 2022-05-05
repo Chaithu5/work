@@ -1,0 +1,117 @@
+SQL> create table custom(cusid int,cusname char(20),price int);
+
+Table created.
+
+SQL> insert into custom values(&cusid,'&cusname',&price);
+Enter value for cusid: 1
+Enter value for cusname: Peter
+Enter value for price: 5000
+old   1: insert into custom values(&cusid,'&cusname',&price)
+new   1: insert into custom values(1,'Peter',5000)
+
+1 row created.
+
+SQL> /
+Enter value for cusid: 2
+Enter value for cusname: Chaithu
+Enter value for price: 8000
+old   1: insert into custom values(&cusid,'&cusname',&price)
+new   1: insert into custom values(2,'Chaithu',8000)
+
+1 row created.
+
+SQL> /
+Enter value for cusid: 3
+Enter value for cusname: Miles
+Enter value for price: 7000
+old   1: insert into custom values(&cusid,'&cusname',&price)
+new   1: insert into custom values(3,'Miles',7000)
+
+1 row created.
+
+SQL> insert into custom values(4,'gigachad',500);
+
+1 row created.
+
+SQL> commit;
+
+Commit complete.
+
+SQL> delete from custom where price=8000;
+
+1 row deleted.
+
+SQL> select * from custom;
+
+     CUSID CUSNAME                   PRICE                                      
+---------- -------------------- ----------                                      
+         1 Peter                      5000                                      
+         3 Miles                      7000                                      
+         4 gigachad                    500                                      
+
+SQL> rollback;
+
+Rollback complete.
+
+SQL> select * from custom;
+
+     CUSID CUSNAME                   PRICE                                      
+---------- -------------------- ----------                                      
+         1 Peter                      5000                                      
+         2 Chaithu                    8000                                      
+         3 Miles                      7000                                      
+         4 gigachad                    500                                      
+
+SQL> savepoint save1;
+
+Savepoint created.
+
+SQL> delete from custom where price<1000;
+
+1 row deleted.
+
+SQL> savepoint save2;
+
+Savepoint created.
+
+SQL> select * from custom;
+
+     CUSID CUSNAME                   PRICE                                      
+---------- -------------------- ----------                                      
+         1 Peter                      5000                                      
+         2 Chaithu                    8000                                      
+         3 Miles                      7000                                      
+
+SQL> rollback to save1;
+
+Rollback complete.
+
+SQL> select * from custom;
+
+     CUSID CUSNAME                   PRICE                                      
+---------- -------------------- ----------                                      
+         1 Peter                      5000                                      
+         2 Chaithu                    8000                                      
+         3 Miles                      7000                                      
+         4 gigachad                    500                                      
+
+SQL> grant select on custom to profile1;
+
+Grant succeeded.
+
+SQL> delete from custom where price=5000;
+
+1 row deleted.
+
+SQL> rollback to save2;
+rollback to save2
+*
+ERROR at line 1:
+ORA-01086: savepoint 'SAVE2' never established in this session or is invalid 
+
+
+SQL> revoke select on custom from profile1;
+
+Revoke succeeded.
+
+SQL> spool off
